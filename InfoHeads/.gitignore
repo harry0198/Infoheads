@@ -25,6 +25,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 Infoheads.iml
-.idea
-InfoHeads-Parent.iml
-InfoHeads/temp
+InfoHeads/server
+InfoHeads/server/
+InfoHeads/.settings

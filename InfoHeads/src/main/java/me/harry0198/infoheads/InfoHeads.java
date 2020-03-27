@@ -17,6 +17,7 @@ import me.harry0198.infoheads.listeners.HDBListener;
 import me.harry0198.infoheads.utils.HdbApi;
 import me.harry0198.infoheads.utils.LoadedLocations;
 import me.harry0198.infoheads.utils.PapiMethod;
+import me.harry0198.infoheads.utils.Settings;
 import me.harry0198.infoheads.utils.Utils;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
@@ -33,146 +34,38 @@ import org.bukkit.plugin.java.JavaPlugin;
 import me.harry0198.infoheads.commands.general.conversations.wizard.InfoHeadsConversationPrefix;
 import me.harry0198.infoheads.listeners.EntityListeners;
 
-public class InfoHeads extends JavaPlugin implements ConversationAbandonedListener {
-    // Array to check if naming / assignment is complete in wizard
-    public List<Player> namedComplete = new ArrayList<>();
-    private Set<LoadedLocations> loadedLoc = new HashSet<>();
-    private Set<Location> validLocations = new HashSet<>();
-    public HeadStacks headStacks = new HeadStacks();
-    public PapiMethod papiMethod = new PapiMethod();
-    public boolean papi = false;
-    public Map<Player, String> uuid = new HashMap<>();
+public class InfoHeads extends JavaPlugin {
 
-    // Data Storage lists & Maps
-    public List<String> infoheads = new ArrayList<>();
+    /* Handlers */
+    private final Settings settings = new Settings();
 
-    public boolean offHand = true;
-    @Inject private CommandManager commandManager;
-    private Injector injector;
-    private Map<Player, EditCommand.Types> typesMap = new HashMap<>();
-    public Map<Player, LoadedLocations> typesMapClass = new HashMap<>();
-
-    // Conversations
-    private ConversationFactory conversationFactory;
-    private ConversationFactory editFactory;
-    private HdbApi hdbApiModule;
-
-    /**
-     * Class constructor -- loads the conversation factory
-     */
-    public InfoHeads() {
-        this.conversationFactory = new ConversationFactory(this).withModality(true)
-                .withPrefix(new InfoHeadsConversationPrefix()).withFirstPrompt(new CommandPrompt())
-                .withEscapeSequence("cancel").withTimeout(60)
-                .thatExcludesNonPlayersWithMessage("Console is not supported by this command")
-                .addConversationAbandonedListener(this);
-        this.editFactory = new ConversationFactory(this).withModality(true)
-                .withPrefix(new InfoHeadsConversationPrefix()).withFirstPrompt(new LineSelectPrompt())
-                .withEscapeSequence("cancel").withTimeout(60)
-                .thatExcludesNonPlayersWithMessage("Console is not supported by this command")
-                .addConversationAbandonedListener(this);
-    }
 
     @Override
     public void onEnable() {
+
+        saveDefaultConfig();
+
         // Metrics
         @SuppressWarnings("unused")
         Metrics metrics = new Metrics(this);
         // Checking for PAPI
-        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null)
-            papi = true;
-
-        FileConfiguration config = getConfig();
-        config.options().copyDefaults(true);
-        saveDefaultConfig();
 
         Stream.of(Registerables.GUICE, Registerables.INFOHEADS, Registerables.LISTENERS, Registerables.COMMANDS).forEach(this::register);
-
-        if (Bukkit.getServer().getVersion().contains("1.8")) offHand = false;
 
     }
 
     public void register(Registerables registerable) {
         switch (registerable) {
-            case GUICE:
-                    injector = new BinderModule(this).createInjector();
-                    injector.injectMembers(this);
 
-                break;
 
             case COMMANDS:
                 Objects.requireNonNull(getCommand("infoheads"))
                         .setExecutor(commandManager);
                 Arrays.stream(Commands.values()).map(Commands::getClazz).map(injector::getInstance).forEach(commandManager.getCommands()::add);
                 break;
-
-            case INFOHEADS:
-                loadedLoc.clear();
-
-                ConfigurationSection section = getConfig().getConfigurationSection("Infoheads");
-                for (String each : section.getKeys(false)) {
-
-                    World world = Bukkit.getWorld(section.getString(each + ".location.world"));
-                    int x = section.getInt(each + ".location.x");
-                    int y = section.getInt(each + ".location.y");
-                    int z = section.getInt(each + ".location.z");
-
-                    Location loc = new Location(world, x, y, z);
-
-                    loadedLoc.add(new LoadedLocations.Builder()
-                            .setLocation(loc)
-                            .setCommand(section.getStringList(each + ".commands"))
-                            .setMessage(section.getStringList(each + ".messages"))
-                            .setKey(each)
-                            .build());
-
-                    validLocations.add(loc);
-                }
-                break;
-
-            case LISTENERS:
-                getServer().getPluginManager().registerEvents(new EntityListeners(this, offHand, commandManager), this);
-                getServer().getPluginManager().registerEvents(new HDBListener(), this);
-                break;
         }
     }
 
-    public void conversationAbandoned(ConversationAbandonedEvent abandonedEvent) {
-        Player player = (Player) abandonedEvent.getContext().getForWhom();
-        // If exit using abandon keyword
-        if (!(abandonedEvent.gracefulExit())) {
-            Utils.sendMessage(player, "Exit the Infoheads wizard.");
-            Inventory.restoreInventory(player);
-        }
-    }
-
-    public Set<Location> getValidLocations() {
-        return validLocations;
-    }
-
-    public void removeValidLocation(Location location) {
-        validLocations.remove(location);
-    }
-
-    public ConversationFactory getConversationFactory() {
-        return conversationFactory;
-    }
-    public ConversationFactory getEditFactory() {
-        return editFactory;
-    }
-    public Map<Player, EditCommand.Types> getCurrentEditType() { return typesMap; }
-    public Set<LoadedLocations> getLoadedLoc() {
-        return loadedLoc;
-    }
-    public HdbApi getHdbApiModule(){
-        return hdbApiModule;
-    }
-
-    public void setHdbApiModule(HdbApi hdbApiModule){
-        this.hdbApiModule = hdbApiModule;
-    }
-
-    
     public static InfoHeads getInstance() {
         return getPlugin(InfoHeads.class);
     }
