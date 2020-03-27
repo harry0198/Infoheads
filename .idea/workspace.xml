@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="1f486b1f-b303-4601-9804-2326469665c0" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/InfoHeads/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/InfoHeads/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InfoHeads/src/main/java/me/harry0198/infoheads/InfoHeads.java" beforeDir="false" afterPath="$PROJECT_DIR$/InfoHeads/src/main/java/me/harry0198/infoheads/InfoHeads.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1ZiLF8853FkqCItY25sgRuzy5WX" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/InfoHeads" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1f486b1f-b303-4601-9804-2326469665c0" name="Default Changelist" comment="" />
+      <created>1585316861274</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1585316861274</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Updated Project Structure">
+      <created>1585316992395</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1585316992395</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Updated Project Structure" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated Project Structure" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1733" y="23" key="CommitChangelistDialog2" timestamp="1585317507483">
+      <screen x="1440" y="23" width="1360" height="745" />
+    </state>
+    <state x="1733" y="23" key="CommitChangelistDialog2/0.23.1440.808/1440.23.1360.745@1440.23.1360.745" timestamp="1585317507483" />
+    <state x="1440" y="23" width="852" height="745" key="find.popup" timestamp="1585317448260">
+      <screen x="1440" y="23" width="1360" height="745" />
+    </state>
+    <state x="1440" y="23" width="852" height="745" key="find.popup/0.23.1440.808/1440.23.1360.745@1440.23.1360.745" timestamp="1585317448260" />
+  </component>
+</project>
